@@ -30,4 +30,14 @@ describe("Inbox", () => {
     const message = await inbox.methods.message().call();
     assert.ok(message, INITIAL_STRING);
   });
+
+  it("has updated message", async () => {
+    await inbox.methods.setMessage("Nigga Updated this shit").send({
+      from: accounts[0],
+      gas: "1000000",
+    });
+
+    const message = await inbox.methods.message().call();
+    assert.ok(message, "Nigga Updated this shit");
+  });
 });
