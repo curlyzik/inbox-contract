@@ -1,7 +1,7 @@
 // deploy code will go here
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require("web3");
-const { interface, bytecode } = require("./compile");
+const { abi, evm } = require("./compile");
 
 const provider = new HDWalletProvider(
   "situate noodle hawk congress fiber cage area mountain avoid alarm despair citizen",
@@ -15,9 +15,9 @@ const deploy = async () => {
 
   console.log("Attempting to deploy from account", accounts[0]);
 
-  const result = await new web3.eth.Contract(JSON.parse(interface))
+  const result = await new web3.eth.Contract(abi)
     .deploy({
-      data: bytecode,
+      data: evm.bytecode.object,
       arguments: ["Deploy first contract!"],
     })
     .send({ from: accounts[0], gas: "1000000" });
